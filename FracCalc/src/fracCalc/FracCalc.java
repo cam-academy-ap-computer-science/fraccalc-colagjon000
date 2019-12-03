@@ -1,4 +1,25 @@
 package fracCalc;
+import java.util.*;
+/* Outline!!!
+ * Input value -- 
+ * 	- One string
+ *  - New values separated by a single space (Look for spaces!!)
+ * Organization
+ *  - (note to self -- call everything within produce answer to keep values within scope)
+ *  - method produceAnswer handles all calculations
+ *  - main method handles all the output and user interface -- handles quit function as well
+ *  - Helper methods as needed for organization -- Listed here:
+ * Main method!
+ *  - Create scanner userBoi
+ *  - while loop to check if userBoi = "quit"
+ *  	- "quit" exits the loop
+ *  - userBoi != "quit", go on
+ * produceAnswer method!
+ *  - SPECIAL CONDITIONS TO REMEMEBORIO 
+ *  	- Divide by 0
+ *  	- Multiply by 0
+ *  	- 
+ */
 
 public class FracCalc {
 
