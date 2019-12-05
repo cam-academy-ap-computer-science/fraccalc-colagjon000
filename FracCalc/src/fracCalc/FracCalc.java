@@ -4,6 +4,8 @@ import java.util.*;
  * Input value -- 
  * 	- One string
  *  - New values separated by a single space (Look for spaces!!)
+ * Flow --
+ * 
  * Organization
  *  - (note to self -- call everything within produce answer to keep values within scope)
  *  - method produceAnswer handles all calculations
@@ -16,9 +18,33 @@ import java.util.*;
  *  - userBoi != "quit", go on
  * produceAnswer method!
  *  - SPECIAL CONDITIONS TO REMEMEBORIO 
- *  	- Divide by 0
- *  	- Multiply by 0
- *  	- 
+ *  	- Divide by 0 (if statement)
+ *  	- Multiply by 0 (if statement)
+ * Helper Methods:
+ *  - stringBreak (breaks up string into the 3 or more components of operands and operators)
+ *  	- INPUT string from input
+ *  	- operand and operators broken by spaces
+ *  	- break string at first space
+ *  	- set new string (operand1) of everything before the space and old string everything after the space
+ *  	- repeat to find operator (operator1)
+ *  	- repeat to find second number (operand2)
+ *  	- (For extra credit -- continue process of operand, operator, operand, and so on)
+ *  	- OUTPUT -- operand1, operator1, operand2
+ *  - convertData (takes broken operand strings and changes them into integer values)
+ *  	- INPUT number strings from stringBreak
+ *  	- scan string and store length -- length proportional to the highest place value -- i.e. 432, length = 2, hundred's place is 10^2.
+ *  	- findNum(charAt 0,) multiply by Math.pow(given number, lengthOfString)
+ *  		- loop -- charAt++ and length of string-- until charAt returns -1
+ *  - findNum
+ *  	- INPUT char value of a number
+ *  	- goes through 10 if statements for each base 10 number
+ *  	- OUTPUT returns a single integer value
+ *  - impropFrac
+ *  - operator sort
+ *  - multiply
+ *  - divide
+ *  - addition
+ *  - subtraction
  */
 
 public class FracCalc {
