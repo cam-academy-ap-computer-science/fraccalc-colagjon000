@@ -15,7 +15,7 @@ import java.util.*;
  *  - Create scanner userBoi
  *  - while loop to check if userBoi = "quit"
  *  	- "quit" exits the loop
- *  - userBoi != "quit", go on
+ *  - userBoi != "quit", go on DONE
  * produceAnswer method!
  * 	- INPUT
  *  - SPECIAL CONDITIONS TO REMEMEBORIO 
@@ -51,7 +51,7 @@ import java.util.*;
  *  	- OUTPUT finished built number
  *  - findNum
  *  	- INPUT char value of a number
- *  	- goes through 10 if statements for each base 10 number
+ *  	- changes char to integer getNumericValue
  *  	- OUTPUT returns a single integer value
  *  - impropFrac
  *  - operator sort
@@ -65,8 +65,19 @@ public class FracCalc {
 
     public static void main(String[] args) 
     {
-        // TODO: Read the input from the user and call produceAnswer with an equation
-
+    	@SuppressWarnings("resource")
+ 		 Scanner userBoi = new Scanner(System.in);
+         System.out.println("Type calculation in the space below in the pattern of <number> <operator> <number> respective to spacing");
+         System.out.println("(If the number is a fraction, type in the form of <wholenumber>_<numerator>/<denominator>)");
+         System.out.println("Type \"quit\" (without quations) to exit");
+         String equation = userBoi.nextLine();
+         equation = equation.toLowerCase(); //makes sure quit is not case sensitive
+         while (!(equation.equals("quit"))) { //checks if equation string does not equate to "quit"
+         	System.out.println(produceAnswer(equation));
+         	equation = userBoi.nextLine();
+         	equation = equation.toLowerCase();
+         }
+         System.out.println("Finished");
     }
     
     // ** IMPORTANT ** DO NOT DELETE THIS FUNCTION.  This function will be used to test your code
@@ -79,9 +90,17 @@ public class FracCalc {
     //      e.g. return ==> "1_1/4"
     public static String produceAnswer(String input)
     { 
-        // TODO: Implement this function to produce the solution to the input
-        
-        return "";
+    	//check if operation is being divided by zero
+    	if (input.endsWith("/ 0")) {
+    		return "You tried to divide by Zero! No!!";
+    	}
+    	//check if operation is being multiplied by zero
+    	if (input.endsWith("* 0") || input.startsWith("0 *")) {
+    		return "0";
+    	}
+        //break up input string into operands and operators
+    	
+        return "test";
     }
 
     // TODO: Fill in the space below with any helper methods that you think you will need
