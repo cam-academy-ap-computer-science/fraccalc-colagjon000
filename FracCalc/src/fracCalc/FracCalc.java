@@ -17,11 +17,11 @@ import java.util.*;
  *  	- "quit" exits the loop
  *  - userBoi != "quit", go on
  * produceAnswer method!
+ * 	- INPUT
  *  - SPECIAL CONDITIONS TO REMEMEBORIO 
  *  	- Divide by 0 (if statement)
  *  	- Multiply by 0 (if statement)
- * Helper Methods:
- *  - stringBreak (breaks up string into the 3 or more components of operands and operators)
+ *  - stringBreak portion (breaks up string into the 3 or more components of operands and operators)
  *  	- INPUT string from input
  *  	- operand and operators broken by spaces
  *  	- break string at first space
@@ -29,12 +29,26 @@ import java.util.*;
  *  	- repeat to find operator (operator1)
  *  	- repeat to find second number (operand2)
  *  	- (For extra credit -- continue process of operand, operator, operand, and so on)
- *  	- OUTPUT -- operand1, operator1, operand2
- *  - convertData (takes broken operand strings and changes them into integer values)
- *  	- INPUT number strings from stringBreak
+ *  	- output "checkpoint" -- operand1, operator1, operand2
+ * 		- check if string contains underscore or not -- repeat for both operands or all operands -- DO FOR ALL OPERANDS --
+ *  	- IF yes
+ *  		- break string into fraction and wholeNumber
+ *  		- call stringToInt
+ *  		- split numerator and denominator of second broken string -- store
+ *  		- set corresponding boolean isRational to true
+ *  	- IF no
+ *  		- call stringToInt -- store values
+ *  		- set corresponding boolean isRational to false
+ *  	- TURN fraction and number sets into improper fractions for math
+ *  		- call impropFrac for each operand
+ *  	- find corresponding operator and sort to each function
+ *
+ * Helper Methods:
+ *  - stringToInt -- INPUT -- string OUTPUT integer
  *  	- scan string and store length -- length proportional to the highest place value -- i.e. 432, length = 2, hundred's place is 10^2.
  *  	- findNum(charAt 0,) multiply by Math.pow(given number, lengthOfString)
  *  		- loop -- charAt++ and length of string-- until charAt returns -1
+ *  	- OUTPUT finished built number
  *  - findNum
  *  	- INPUT char value of a number
  *  	- goes through 10 if statements for each base 10 number
