@@ -65,7 +65,6 @@ public class FracCalc {
 
     public static void main(String[] args) 
     {
-    	@SuppressWarnings("resource")
  		 Scanner userBoi = new Scanner(System.in);
          System.out.println("Type calculation in the space below in the pattern of <number> <operator> <number> respective to spacing");
          System.out.println("(If the number is a fraction, type in the form of <wholenumber>_<numerator>/<denominator>)");
@@ -78,6 +77,7 @@ public class FracCalc {
          	equation = equation.toLowerCase();
          }
          System.out.println("Finished");
+         userBoi.close();
     }
     
     // ** IMPORTANT ** DO NOT DELETE THIS FUNCTION.  This function will be used to test your code
@@ -103,6 +103,25 @@ public class FracCalc {
         return "test";
     }
 
-    // TODO: Fill in the space below with any helper methods that you think you will need
+    //String to integer DONE
+    public static int stringToInt(String input) {
+    	int number = 0;
+    	int places = input.length();
+    	int curPlaceValue = places -1; //place value for exponent of 10
+    	if (input.charAt(0) == '-') { //checks if string is negative
+    		curPlaceValue--; //adjusts top limit accordingly to make up for the negative sign
+    		for (int i = 1; i < places; i++) { //loops for necessary amount of place values
+        		number += Character.getNumericValue(input.charAt(i)) * Math.pow(10, curPlaceValue); //adds given place value to total number (char to integer)
+        		curPlaceValue --; //adjusts place value for next digit
+        	}
+    		return number * -1;
+    	} else { //string is positive
+    		for (int i = 0; i < places; i++) {
+    			number += Character.getNumericValue(input.charAt(i)) * Math.pow(10, curPlaceValue);
+    			curPlaceValue --; //adjusts place value for next digit
+        	}
+    		return number;
+    	}
+	}
     
 }
