@@ -54,7 +54,7 @@ import java.util.*;
  *  	- changes char to integer getNumericValue
  *  	- OUTPUT returns a single integer value
  *  - impropFrac
- *  - operator sort
+ *  - operator sort -- merge into produceAnswer
  *  - multiply
  *  - divide
  *  - addition
@@ -99,7 +99,22 @@ public class FracCalc {
     		return "0";
     	}
         //break up input string into operands and operators
+    	//look for spaces
+    	int spaceLocation = input.indexOf(' ');
+    	int secondSpaceLocation = input.lastIndexOf(' ');
+    	String operOne = input.substring(0, spaceLocation);
+    	String operTwo = input.substring(secondSpaceLocation + 1, input.length());
+    	String operOneNum = "";
+    	String operOneDen = "";
+    	String operTwoNum = "";
+    	String operTwoDen = "";
+    	char operator = input.charAt(spaceLocation + 1);
     	
+    	//transfer to respective operators
+    	//split fractions if any
+    	if (operOne.contains("_")) {
+    		
+    	}
         return "test";
     }
 
@@ -123,5 +138,17 @@ public class FracCalc {
     		return number;
     	}
 	}
+    
+    //impropFraction -- turns whole number and fraction into an improper fraction to do math on
+    
+    //multiply -- basic fraction math, returns value as string
+    
+    //divide -- inverse of multiply
+    
+    //add
+    
+    //subtract
+    
+    //simplify -- simplifies the fraction
     
 }
