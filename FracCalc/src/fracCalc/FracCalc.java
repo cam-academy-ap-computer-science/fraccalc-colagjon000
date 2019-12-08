@@ -102,22 +102,37 @@ public class FracCalc {
     	//look for spaces
     	int spaceLocation = input.indexOf(' ');
     	int secondSpaceLocation = input.lastIndexOf(' ');
-    	String operOne = input.substring(0, spaceLocation);
-    	String operTwo = input.substring(secondSpaceLocation + 1, input.length());
-    	String operOneNum = "";
-    	String operOneDen = "";
-    	String operTwoNum = "";
-    	String operTwoDen = "";
+    	String operOneStr = input.substring(0, spaceLocation);
+    	String operTwoStr = input.substring(secondSpaceLocation + 1, input.length());
     	char operator = input.charAt(spaceLocation + 1);
+    	// look if fraction
+    	boolean opOneIsFrac = isFraction(operOneStr);
+    	boolean opTwoIsFrac = isFraction(operTwoStr);
+    	//If both are whole numbers -- jump to math
     	
-    	//transfer to respective operators
-    	//split fractions if any
-    	if (operOne.contains("_")) {
+    	if (opOneIsFrac == false && opOneIsFrac == false) {
     		
     	}
+    	// splits fractions if any
+    	if (opOneIsFrac == true) {
+    		
+    	}
+    	if (opTwoIsFrac == true) {
+    		
+    	}
+    	//transfer to respective operators
+    	
         return "test";
     }
-
+    //simple check if fraction
+    public static boolean isFraction (String input) {
+    	if (input.contains("_") ) {
+    		return true;
+    	}
+    	else {
+    		return false;
+    	}
+    }
     //String to integer DONE
     public static int stringToInt(String input) {
     	int number = 0;
@@ -140,6 +155,9 @@ public class FracCalc {
 	}
     
     //impropFraction -- turns whole number and fraction into an improper fraction to do math on
+    
+    //sortOperator -- sorts operators
+    
     
     //multiply -- basic fraction math, returns value as string
     
