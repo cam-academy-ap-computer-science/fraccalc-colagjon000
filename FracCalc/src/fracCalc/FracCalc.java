@@ -102,27 +102,46 @@ public class FracCalc {
     	//look for spaces
     	int spaceLocation = input.indexOf(' ');
     	int secondSpaceLocation = input.lastIndexOf(' ');
+    	
+    	//operOneStr = Operand One String version
     	String operOneStr = input.substring(0, spaceLocation);
+    	//operTwoStr = Operand two String Version
+    	//CHECKPOINT ONE
     	String operTwoStr = input.substring(secondSpaceLocation + 1, input.length());
     	char operator = input.charAt(spaceLocation + 1);
     	// look if fraction
     	boolean opOneIsFrac = isFraction(operOneStr);
     	boolean opTwoIsFrac = isFraction(operTwoStr);
-    	//If both are whole numbers -- jump to math
     	
+    	//initialize all math variables
+    	int wholeOne = 0;
+    	int numOne = 0;
+    	int denoOne = 1; //denominator equals one no matter what
+    	int wholeTwo = 0;
+    	int numTwo = 0;
+    	int denoTwo = 1;
+    	//if both values are not fractions, set the string to its value
     	if (opOneIsFrac == false && opOneIsFrac == false) {
-    		
+    		wholeOne = stringToInt(operOneStr);
+    		wholeTwo = stringToInt(operTwoStr);
     	}
-    	// splits fractions if any
+    	// splits fractions into integers if any 
     	if (opOneIsFrac == true) {
-    		
+    		wholeOne = stringToInt(operOneStr.substring(0, operOneStr.indexOf('_')));
+    		numOne = stringToInt(operOneStr.substring(operOneStr.indexOf('_') + 1, operOneStr.indexOf('/')));
+    		denoOne = stringToInt(operOneStr.substring(operOneStr.indexOf('/') + 1, operOneStr.length()));
+    		System.out.println(wholeOne + " " + numOne + " " + denoOne);
     	}
+    	//CHECKPOINT TWO
     	if (opTwoIsFrac == true) {
-    		
+    		wholeTwo = stringToInt(operTwoStr.substring(0, operTwoStr.indexOf('_')));
+    		numTwo = stringToInt(operTwoStr.substring(operTwoStr.indexOf('_') + 1, operTwoStr.indexOf('/')));
+    		denoTwo = stringToInt(operTwoStr.substring(operTwoStr.indexOf('/') + 1, operTwoStr.length()));
+    		System.out.println(wholeTwo + " " + numTwo + " " + denoTwo);
     	}
     	//transfer to respective operators
     	
-        return "test";
+        return operTwoStr;
     }
     //simple check if fraction
     public static boolean isFraction (String input) {
@@ -157,7 +176,6 @@ public class FracCalc {
     //impropFraction -- turns whole number and fraction into an improper fraction to do math on
     
     //sortOperator -- sorts operators
-    
     
     //multiply -- basic fraction math, returns value as string
     
