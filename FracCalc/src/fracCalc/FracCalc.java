@@ -105,14 +105,18 @@ public class FracCalc {
     	
     	//operOneStr = Operand One String version
     	String operOneStr = input.substring(0, spaceLocation);
+    	//System.out.println(operOneStr);
     	//operTwoStr = Operand two String Version
     	//CHECKPOINT ONE
     	String operTwoStr = input.substring(secondSpaceLocation + 1, input.length());
+    	//System.out.println(operTwoStr);
     	char operator = input.charAt(spaceLocation + 1);
     	// look if fraction
     	boolean opOneIsFrac = isFraction(operOneStr);
     	boolean opTwoIsFrac = isFraction(operTwoStr);
-    	
+    	boolean opOneIsOnlyFrac = isOnlyFraction(operOneStr);
+    	boolean opTwoIsOnlyFrac = isOnlyFraction(operTwoStr);
+    	    	
     	//initialize all math variables
     	int wholeOne = 0;
     	int numOne = 0;
@@ -120,9 +124,18 @@ public class FracCalc {
     	int wholeTwo = 0;
     	int numTwo = 0;
     	int denoTwo = 1;
-    	//if both values are not fractions, set the string to its value
-    	if (opOneIsFrac == false && opOneIsFrac == false) {
+    	// if values are only fractions
+    	if (opOneIsOnlyFrac == true && opOneIsFrac == false) {
+    		numOne = stringToInt(operOneStr.substring(0, operOneStr.indexOf('/')));
+    		denoOne = stringToInt(operOneStr.substring(operOneStr.indexOf('/') + 1, operOneStr.length()));
+    	} else if (opOneIsOnlyFrac == false && opOneIsFrac == false) { // if values are only whole numbers
     		wholeOne = stringToInt(operOneStr);
+    	}
+    	// if values are only fractions
+    	if (opTwoIsOnlyFrac == true && opTwoIsFrac == false) {
+    		numTwo = stringToInt(operTwoStr.substring(0, operTwoStr.indexOf('/')));
+    		denoTwo = stringToInt(operTwoStr.substring(operTwoStr.indexOf('/') + 1, operTwoStr.length()));
+    	} else if (opTwoIsOnlyFrac == false && opTwoIsFrac == false) { //if values are only whole numbers
     		wholeTwo = stringToInt(operTwoStr);
     	}
     	// splits fractions into integers if any 
@@ -130,29 +143,36 @@ public class FracCalc {
     		wholeOne = stringToInt(operOneStr.substring(0, operOneStr.indexOf('_')));
     		numOne = stringToInt(operOneStr.substring(operOneStr.indexOf('_') + 1, operOneStr.indexOf('/')));
     		denoOne = stringToInt(operOneStr.substring(operOneStr.indexOf('/') + 1, operOneStr.length()));
-    		System.out.println(wholeOne + " " + numOne + " " + denoOne);
     	}
-    	//CHECKPOINT TWO
     	if (opTwoIsFrac == true) {
     		wholeTwo = stringToInt(operTwoStr.substring(0, operTwoStr.indexOf('_')));
     		numTwo = stringToInt(operTwoStr.substring(operTwoStr.indexOf('_') + 1, operTwoStr.indexOf('/')));
     		denoTwo = stringToInt(operTwoStr.substring(operTwoStr.indexOf('/') + 1, operTwoStr.length()));
-    		System.out.println(wholeTwo + " " + numTwo + " " + denoTwo);
     	}
+    	//CHECKPOINT TWO!!!
     	//transfer to respective operators
     	
-        return operTwoStr;
+        return "whole:" + wholeTwo + " numerator:" + numTwo + " denominator:" + denoTwo;
     }
     //simple check if fraction
     public static boolean isFraction (String input) {
     	if (input.contains("_") ) {
     		return true;
+    	} else {
+    		return false;
     	}
-    	else {
+    }
+    //simple check if fraction is only a fraction
+    public static boolean isOnlyFraction (String input) {
+    	if (input.contains("/") && !(input.contains("_"))) {
+    		return true;
+    	} else {
     		return false;
     	}
     }
     //String to integer DONE
+    //Mark told me I could use parseInt AFTER I wrote all this out!!! :(
+    //So this is my version of parseInt -- Enjoy!!
     public static int stringToInt(String input) {
     	int number = 0;
     	int places = input.length();
