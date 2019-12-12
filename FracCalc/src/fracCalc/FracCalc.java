@@ -159,6 +159,8 @@ public class FracCalc {
     	} else if (operator == '/') {
     		//Inverse of multiply
     	} else if (operator == '*') {
+    		return multiply(numOne, denoOne, numTwo, denoTwo);
+    	} else if (operator == '=') {
     		
     	} else {
     		return "error! -- Non-identifiable operator";
@@ -212,17 +214,26 @@ public class FracCalc {
     	newNumerator += numerator;
     	return newNumerator;
     }
-    //Lowest common denominator
-    public static int getCommonDeno (int denoOne, int denoTwo) {
-    	int commonDeno = 0;
-    	return commonDeno;
+
+    //multiply -- basic fraction math, returns value as string -- needs simplifying
+    public static String multiply (int numOne, int denoOne, int numTwo, int denoTwo) {
+    	int numFinal = numOne * numTwo; //new numerator
+    	int denoFinal = denoOne * denoTwo; //new denominator
+    	return simplify(numFinal, denoFinal);
     }
-    //multiply -- basic fraction math, returns value as string
-    
     //add
     
     //subtract
     
     //simplify -- simplifies the fraction
+    public static String simplify(int numerator, int denominator) {
+    	if ((numerator == denominator) && numerator != 0 && denominator != 0) { //checks if indentity
+    		return "1";
+    	} else if (numerator == 0 && denominator == 0) { // if it ends up to be 0, boom
+    		return "0";
+    	}
+    	//TODO -- Make simplifying all fractions 
+    	return "";
+    }
     
 }
