@@ -79,23 +79,15 @@ public class FracCalc {
          System.out.println("Finished");
          userBoi.close();
     }
-    
-    // ** IMPORTANT ** DO NOT DELETE THIS FUNCTION.  This function will be used to test your code
-    // This function takes a String 'input' and produces the result
-    //
-    // input is a fraction string that needs to be evaluated.  For your program, this will be the user input.
-    //      e.g. input ==> "1/2 + 3/4"
-    //        
-    // The function should return the result of the fraction after it has been calculated
-    //      e.g. return ==> "1_1/4"
+
     public static String produceAnswer(String input)
     { 
     	//check if operation is being divided by zero
-    	if (input.endsWith("/ 0")) {
+    	if (input.endsWith("/ 0") || input.endsWith("/ 0_0/0") || input.endsWith("/ 0/0")) {
     		return "Error! -- You tried to divide by Zero! No!!";
     	}
     	//check if operation is being multiplied by zero
-    	if (input.endsWith("* 0") || input.startsWith("0 *")) {
+    	if (input.endsWith("* 0") || input.endsWith("* 0_0/0") || input.endsWith("* 0/0") || input.startsWith("0 *")) {
     		return "0";
     	}
         //break up input string into operands and operators
@@ -150,7 +142,7 @@ public class FracCalc {
     		denoTwo = stringToInt(operTwoStr.substring(operTwoStr.indexOf('/') + 1, operTwoStr.length()));
     	}
     	//CHECKPOINT TWO!!!
-    	//Turn fractions into improper fractions if there are any fractions -- whole numbers to improper fractions as well
+    	//Turn fractions into improper fractions if there are any fractions -- whole numbers to improper fractions as well -- TESTED WORKS
     	if (opOneIsFrac == true || numOne == 0) {
     		numOne = getImpropFrac(wholeOne, numOne, denoOne);
     		wholeOne = 0;
@@ -165,7 +157,7 @@ public class FracCalc {
     	} else if (operator == '-') {
     		
     	} else if (operator == '/') {
-    		
+    		//Inverse of multiply
     	} else if (operator == '*') {
     		
     	} else {
@@ -220,11 +212,12 @@ public class FracCalc {
     	newNumerator += numerator;
     	return newNumerator;
     }
-    //sortOperator -- sorts operators
-    
+    //Lowest common denominator
+    public static int getCommonDeno (int denoOne, int denoTwo) {
+    	int commonDeno = 0;
+    	return commonDeno;
+    }
     //multiply -- basic fraction math, returns value as string
-    
-    //divide -- inverse of multiply
     
     //add
     
