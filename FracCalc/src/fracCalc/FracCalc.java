@@ -92,7 +92,7 @@ public class FracCalc {
     { 
     	//check if operation is being divided by zero
     	if (input.endsWith("/ 0")) {
-    		return "You tried to divide by Zero! No!!";
+    		return "Error! -- You tried to divide by Zero! No!!";
     	}
     	//check if operation is being multiplied by zero
     	if (input.endsWith("* 0") || input.startsWith("0 *")) {
@@ -150,7 +150,27 @@ public class FracCalc {
     		denoTwo = stringToInt(operTwoStr.substring(operTwoStr.indexOf('/') + 1, operTwoStr.length()));
     	}
     	//CHECKPOINT TWO!!!
+    	//Turn fractions into improper fractions if there are any fractions -- whole numbers to improper fractions as well
+    	if (opOneIsFrac == true || numOne == 0) {
+    		numOne = getImpropFrac(wholeOne, numOne, denoOne);
+    		wholeOne = 0;
+    	}
+    	if (opTwoIsFrac == true || numTwo == 0) {
+    		numTwo = getImpropFrac(wholeTwo, numTwo, denoTwo);
+    		wholeTwo = 0;
+    	}
     	//transfer to respective operators
+    	if (operator == '+') {
+    		
+    	} else if (operator == '-') {
+    		
+    	} else if (operator == '/') {
+    		
+    	} else if (operator == '*') {
+    		
+    	} else {
+    		return "error! -- Non-identifiable operator";
+    	}
     	
         return "whole:" + wholeTwo + " numerator:" + numTwo + " denominator:" + denoTwo;
     }
@@ -194,7 +214,12 @@ public class FracCalc {
 	}
     
     //impropFraction -- turns whole number and fraction into an improper fraction to do math on
-    
+    //input whole number, denominator, and numerator -- spits out new numerator as denominator will stay the same and whole will be set to 0
+    public static int getImpropFrac (int whole,  int numerator, int denominator) {
+    	int newNumerator = whole * denominator;
+    	newNumerator += numerator;
+    	return newNumerator;
+    }
     //sortOperator -- sorts operators
     
     //multiply -- basic fraction math, returns value as string
