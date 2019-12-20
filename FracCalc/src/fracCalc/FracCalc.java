@@ -4,8 +4,6 @@ import java.util.*;
  * Input value -- 
  * 	- One string
  *  - New values separated by a single space (Look for spaces!!)
- * Flow --
- * 
  * Organization
  *  - (note to self -- call everything within produce answer to keep values within scope)
  *  - method produceAnswer handles all calculations
@@ -28,7 +26,6 @@ import java.util.*;
  *  	- set new string (operand1) of everything before the space and old string everything after the space
  *  	- repeat to find operator (operator1)
  *  	- repeat to find second number (operand2)
- *  	- (For extra credit -- continue process of operand, operator, operand, and so on)
  *  	- output "checkpoint" -- operand1, operator1, operand2
  * 		- check if string contains underscore or not -- repeat for both operands or all operands -- DO FOR ALL OPERANDS --
  *  	- IF yes
@@ -57,8 +54,6 @@ import java.util.*;
  *  - operator sort -- merge into produceAnswer
  *  - multiply
  *  - divide
- *  - addition
- *  - subtraction
  */
 
 public class FracCalc {
@@ -103,16 +98,16 @@ public class FracCalc {
     	String operTwoStr = input.substring(secondSpaceLocation + 1, input.length());
     	//System.out.println(operTwoStr);
     	char operator = input.charAt(spaceLocation + 1);
-    	// look if fraction
-    	boolean opOneIsFrac = isFraction(operOneStr);
-    	boolean opTwoIsFrac = isFraction(operTwoStr);
+    	// look if fraction -- booleans
+    	boolean opOneIsFrac = isMixedFraction(operOneStr);
+    	boolean opTwoIsFrac = isMixedFraction(operTwoStr);
     	boolean opOneIsOnlyFrac = isOnlyFraction(operOneStr);
     	boolean opTwoIsOnlyFrac = isOnlyFraction(operTwoStr);
     	    	
     	//initialize all math variables
     	int wholeOne = 0;
     	int numOne = 0;
-    	int denoOne = 1; //denominator equals one no matter what
+    	int denoOne = 1; //denominator equals one no matter what even if a whole number i.e. 20 = 20/1
     	int wholeTwo = 0;
     	int numTwo = 0;
     	int denoTwo = 1;
@@ -142,6 +137,13 @@ public class FracCalc {
     		denoTwo = stringToInt(operTwoStr.substring(operTwoStr.indexOf('/') + 1, operTwoStr.length()));
     	}
     	//CHECKPOINT TWO!!!
+    	//changes numerator to negative value if whole number is negative
+    	if (wholeOne < 0) {
+    		numOne *= -1;
+    	}
+    	if (wholeTwo < 0) {
+    		numTwo *= -1;
+    	}
     	//Turn fractions into improper fractions if there are any fractions -- whole numbers to improper fractions as well -- TESTED WORKS
     	if (opOneIsFrac == true || numOne == 0) {
     		numOne = getImpropFrac(wholeOne, numOne, denoOne);
@@ -153,23 +155,44 @@ public class FracCalc {
     	}
     	//transfer to respective operators
     	if (operator == '+') {
+    		//Addition -- ignore lowest common factor, just multiply denominators to find common denominator, simplify later using simplify method
+    		int comDeno = denoOne * denoTwo;
+    		int newNumOne = numOne * denoTwo;
+    		int newNumTwo = numTwo * denoOne;
+    		int finalNum = newNumOne + newNumTwo;
+    		return finalNum + "/" + comDeno;
     		
     	} else if (operator == '-') {
+    		//Subtraction -- ignore lowest common factor, just multiply denominators to find common denominator, simplify later using simplify method
+    		int comDeno = denoOne * denoTwo;
+    		int newNumOne = numOne * denoTwo;
+    		int newNumTwo = numTwo * denoOne;
+    		int finalNum = newNumOne - newNumTwo;
+    		return finalNum + "/" + comDeno;
     		
     	} else if (operator == '/') {
-    		//Inverse of multiply
+    		return multiply(numOne, denoOne, denoTwo, numTwo);
+    		
     	} else if (operator == '*') {
     		return multiply(numOne, denoOne, numTwo, denoTwo);
-    	} else if (operator == '=') {
     		
+    	} else if (operator == '=') { //just a little something i added because i was bored
+    		String operOne = numOne + "/" + denoOne;
+    		String operTwo = numTwo + "/" + denoTwo;
+    		if (operOne.contentEquals(operTwo)) {
+    			return "equivalent";
+    		} else {
+    			return "not equivalent";
+    		}
     	} else {
     		return "error! -- Non-identifiable operator";
     	}
-    	
-        return "whole:" + wholeTwo + " numerator:" + numTwo + " denominator:" + denoTwo;
+    	//CHECKPOINT THREE FINISHED!!!!
+        //return "whole:" + wholeTwo + " numerator:" + numTwo + " denominator:" + denoTwo;
     }
+    
     //simple check if fraction
-    public static boolean isFraction (String input) {
+    public static boolean isMixedFraction (String input) {
     	if (input.contains("_") ) {
     		return true;
     	} else {
@@ -219,12 +242,11 @@ public class FracCalc {
     public static String multiply (int numOne, int denoOne, int numTwo, int denoTwo) {
     	int numFinal = numOne * numTwo; //new numerator
     	int denoFinal = denoOne * denoTwo; //new denominator
-    	return simplify(numFinal, denoFinal);
+    	//TODO return simplify function
+    	return numFinal + "/" + denoFinal;
     }
-    //add
     
-    //subtract
-    
+    //TODO -- Make simplifying method
     //simplify -- simplifies the fraction
     public static String simplify(int numerator, int denominator) {
     	if ((numerator == denominator) && numerator != 0 && denominator != 0) { //checks if indentity
