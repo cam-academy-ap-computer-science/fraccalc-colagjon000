@@ -1,6 +1,6 @@
 package fracCalc;
 import java.util.*;
-/* Outline!!!
+/* Outline!!! -- started off like this, then slowly veered off to another track after i figured out more and more
  * Input value -- 
  * 	- One string
  *  - New values separated by a single space (Look for spaces!!)
@@ -96,7 +96,6 @@ public class FracCalc {
     	String operOneStr = input.substring(0, spaceLocation);
     	//System.out.println(operOneStr);
     	//operTwoStr = Operand two String Version
-    	//CHECKPOINT ONE
     	String operTwoStr = input.substring(secondSpaceLocation + 1, input.length());
     	//System.out.println(operTwoStr);
     	char operator = input.charAt(spaceLocation + 1);
@@ -138,7 +137,6 @@ public class FracCalc {
     		numTwo = stringToInt(operTwoStr.substring(operTwoStr.indexOf('_') + 1, operTwoStr.indexOf('/')));
     		denoTwo = stringToInt(operTwoStr.substring(operTwoStr.indexOf('/') + 1, operTwoStr.length()));
     	}
-    	//CHECKPOINT TWO!!!
     	//changes numerator to negative value if whole number is negative
     	if (wholeOne < 0) {
     		numOne *= -1;
@@ -190,10 +188,9 @@ public class FracCalc {
     	} else {
     		return "error! -- Non-identifiable operator";
     	}
-    	//CHECKPOINT THREE FINISHED!!!!
     }
     
-    /* CUSTOM METHODS!!! */
+    /* CUSTOM METHODS */
     
     //simple check if fraction
     public static boolean isMixedFraction (String input) {
@@ -267,14 +264,12 @@ public class FracCalc {
     	if (numerator == 0 && denominator == 0) { // if it ends up to be 0, it's 0
     		return "0";
     	}
-    	if (denominator == 1) { //if denominator already equals 1; forget it
-    		return Integer.toString(numerator);
-    	}
     	//runs through every possibility for simplifying -- starts counting from top to ensure largest common factor
     	for (int i = numerator; i > 1; i--) {
     		if ((numerator % i == 0) && (denominator % i == 0)) {
     			finalNum = numerator / i;
     			finalDen = denominator / i;
+    			break; //exit loop at first occurrence 
     		}
     	}
     	//if > 1; check for whole numbers
@@ -290,8 +285,16 @@ public class FracCalc {
     			return "-" + finalWhole;
     		}
     	}
+    	
     	//reassign negatives
-    	finalNum = Math.abs(finalNum);
+    	finalNum = Math.abs(finalNum); //for some reason this fixes it from doing a double negative sign on front??
+    	if (finalDen == 1) {
+    		if (numIsNeg == denIsNeg) {
+    			return Integer.toString(finalNum);
+    		} else {
+    			return "-" + finalNum;
+    		}
+    	}
     	if (numIsNeg == denIsNeg) {
     		if (finalWhole != 0) { //if a value other than 0 is stored in whole, add the "whole" value
     			return finalWhole + "_" + finalNum + "/" + finalDen;
