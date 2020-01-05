@@ -89,7 +89,9 @@ public class FracCalc {
     	//look for spaces
     	int spaceLocation = input.indexOf(' ');
     	int secondSpaceLocation = input.lastIndexOf(' ');
-    	
+    	if (input.indexOf(' ') == -1) {
+    		return "error";
+    	}
     	//operOneStr = Operand One String version
     	String operOneStr = input.substring(0, spaceLocation);
     	//System.out.println(operOneStr);
@@ -160,7 +162,7 @@ public class FracCalc {
     		int newNumOne = numOne * denoTwo;
     		int newNumTwo = numTwo * denoOne;
     		int finalNum = newNumOne + newNumTwo;
-    		return finalNum + "/" + comDeno;
+    		return simplify(finalNum, comDeno);
     		
     	} else if (operator == '-') {
     		//Subtraction -- ignore lowest common factor, just multiply denominators to find common denominator, simplify later using simplify method
@@ -168,7 +170,7 @@ public class FracCalc {
     		int newNumOne = numOne * denoTwo;
     		int newNumTwo = numTwo * denoOne;
     		int finalNum = newNumOne - newNumTwo;
-    		return finalNum + "/" + comDeno;
+    		return simplify(finalNum, comDeno);
     		
     	} else if (operator == '/') {
     		return multiply(numOne, denoOne, denoTwo, numTwo);
@@ -177,6 +179,7 @@ public class FracCalc {
     		return multiply(numOne, denoOne, numTwo, denoTwo);
     		
     	} else if (operator == '=') { //just a little something i added because i was bored
+    		//TODO FIX improper fraction check -- run through simplify method first, then check
     		String operOne = numOne + "/" + denoOne;
     		String operTwo = numTwo + "/" + denoTwo;
     		if (operOne.contentEquals(operTwo)) {
@@ -188,8 +191,9 @@ public class FracCalc {
     		return "error! -- Non-identifiable operator";
     	}
     	//CHECKPOINT THREE FINISHED!!!!
-        //return "whole:" + wholeTwo + " numerator:" + numTwo + " denominator:" + denoTwo;
     }
+    
+    /* CUSTOM METHODS!!! */
     
     //simple check if fraction
     public static boolean isMixedFraction (String input) {
@@ -242,20 +246,66 @@ public class FracCalc {
     public static String multiply (int numOne, int denoOne, int numTwo, int denoTwo) {
     	int numFinal = numOne * numTwo; //new numerator
     	int denoFinal = denoOne * denoTwo; //new denominator
-    	//TODO return simplify function
-    	return numFinal + "/" + denoFinal;
+    	return simplify(numFinal, denoFinal);
     }
     
-    //TODO -- Make simplifying method
     //simplify -- simplifies the fraction
     public static String simplify(int numerator, int denominator) {
-    	if ((numerator == denominator) && numerator != 0 && denominator != 0) { //checks if indentity
-    		return "1";
-    	} else if (numerator == 0 && denominator == 0) { // if it ends up to be 0, boom
+    	int finalNum = numerator; //in case fraction is prime
+    	int finalDen = denominator;
+    	int finalWhole = 0;
+    	boolean numIsNeg = false, denIsNeg = false; //simplifying loop only works for positive values -- change numerator/den positive temporarily and store value in booleans
+    	//negative check
+    	if (numerator < 0) {
+    		numIsNeg = true;
+    		numerator = Math.abs(numerator);
+    	}
+    	if (denominator < 0) {
+    		denIsNeg = true;
+    		denominator = Math.abs(denominator);
+    	}
+    	if (numerator == 0 && denominator == 0) { // if it ends up to be 0, it's 0
     		return "0";
     	}
-    	//TODO -- Make simplifying all fractions 
-    	return "";
+    	if (denominator == 1) { //if denominator already equals 1; forget it
+    		return Integer.toString(numerator);
+    	}
+    	//runs through every possibility for simplifying -- starts counting from top to ensure largest common factor
+    	for (int i = numerator; i > 1; i--) {
+    		if ((numerator % i == 0) && (denominator % i == 0)) {
+    			finalNum = numerator / i;
+    			finalDen = denominator / i;
+    		}
+    	}
+    	//if > 1; check for whole numbers
+    	if (finalNum > finalDen) {
+    		finalWhole = finalNum / finalDen;
+    		finalNum = finalNum % finalDen;
+    	}
+    	//check if leftover fraction is 0 or not
+    	if (finalNum == 0) {
+    		if (numIsNeg == denIsNeg) {
+    			return Integer.toString(finalWhole);
+    		} else {
+    			return "-" + finalWhole;
+    		}
+    	}
+    	//reassign negatives
+    	finalNum = Math.abs(finalNum);
+    	if (numIsNeg == denIsNeg) {
+    		if (finalWhole != 0) { //if a value other than 0 is stored in whole, add the "whole" value
+    			return finalWhole + "_" + finalNum + "/" + finalDen;
+    		} else { //if not, don't
+    			return finalNum + "/" + finalDen;
+    		}
+    	} else {
+    		if (finalWhole != 0) {
+    			return "-" + finalWhole + "_" + finalNum + "/" + finalDen;
+    		} else {
+    			return "-" + finalNum + "/" + finalDen;
+    		}
+    	}
+
     }
     
 }
