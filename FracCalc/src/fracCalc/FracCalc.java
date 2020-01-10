@@ -77,12 +77,17 @@ public class FracCalc {
 
     public static String produceAnswer(String input)
     { 
+    	//SPECIAL CASES
     	//check if operation is being divided by zero
-    	if (input.endsWith("/ 0") || input.endsWith("/ 0_0/0") || input.endsWith("/ 0/0")) {
+    	if (input.endsWith("/ 0") || input.endsWith("/ 0_0/0") || input.endsWith("/ 0/0") || input.endsWith("/ -0") || input.endsWith("/ -0/0") || input.endsWith("/ -0_0/0")) {
     		return "Error! -- You tried to divide by Zero! No!!";
     	}
     	//check if operation is being multiplied by zero
-    	if (input.endsWith("* 0") || input.endsWith("* 0_0/0") || input.endsWith("* 0/0") || input.startsWith("0 *")) {
+    	if (input.endsWith("* 0") || input.endsWith("* 0_0/0") || input.endsWith("* 0/0") || input.endsWith("* -0") || input.endsWith("* -0_0/0") || input.endsWith("* -0/0") || input.startsWith("0 *") || input.startsWith("-0 *")) {
+    		return "0";
+    	}
+    	//check if operation is being divided with a 0
+    	if (input.startsWith("-0 /") || input.startsWith("-0/0 /") || input.startsWith("-0_0/0 /") || input.startsWith("0 /") || input.startsWith("0/0 /") || input.startsWith("0_0/0 /")) {
     		return "0";
     	}
         //break up input string into operands and operators
@@ -272,6 +277,8 @@ public class FracCalc {
     			break; //exit loop at first occurrence 
     		}
     	}
+    	finalNum = Math.abs(finalNum); //re-set to positive numbers in case the fraction could not be simplified
+    	finalDen = Math.abs(finalDen);
     	//if > 1; check for whole numbers
     	if (finalNum > finalDen) {
     		finalWhole = finalNum / finalDen;
@@ -287,7 +294,6 @@ public class FracCalc {
     	}
     	
     	//reassign negatives
-    	finalNum = Math.abs(finalNum); //for some reason this fixes it from doing a double negative sign on front??
     	if (finalDen == 1) {
     		if (numIsNeg == denIsNeg) {
     			return Integer.toString(finalNum);
