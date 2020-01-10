@@ -182,10 +182,9 @@ public class FracCalc {
     		return multiply(numOne, denoOne, numTwo, denoTwo);
     		
     	} else if (operator == '=') { //just a little something i added because i was bored
-    		//TODO FIX improper fraction check -- run through simplify method first, then check
-    		String operOne = numOne + "/" + denoOne;
-    		String operTwo = numTwo + "/" + denoTwo;
-    		if (operOne.contentEquals(operTwo)) {
+    		String ops1 = simplify(numOne, denoOne);
+    		String ops2 = simplify(numTwo, denoTwo);
+    		if (ops1.equals(ops2)) {
     			return "equivalent";
     		} else {
     			return "not equivalent";
@@ -195,8 +194,7 @@ public class FracCalc {
     	}
     }
     
-    /* CUSTOM METHODS */
-    
+    /* CUSTOM METHODS */   
     //simple check if fraction
     public static boolean isMixedFraction (String input) {
     	if (input.contains("_") ) {
@@ -279,7 +277,7 @@ public class FracCalc {
     	}
     	finalNum = Math.abs(finalNum); //re-set to positive numbers in case the fraction could not be simplified
     	finalDen = Math.abs(finalDen);
-    	//if > 1; check for whole numbers
+    	//if numerator is greater than denominator -- check for whole numbers
     	if (finalNum > finalDen) {
     		finalWhole = finalNum / finalDen;
     		finalNum = finalNum % finalDen;
@@ -292,7 +290,6 @@ public class FracCalc {
     			return "-" + finalWhole;
     		}
     	}
-    	
     	//reassign negatives
     	if (finalDen == 1) {
     		if (numIsNeg == denIsNeg) {
@@ -314,7 +311,5 @@ public class FracCalc {
     			return "-" + finalNum + "/" + finalDen;
     		}
     	}
-
     }
-    
 }
