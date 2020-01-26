@@ -1,0 +1,16 @@
+Total Grade:  116/115
+
+Input Parsing: 15/15
+Addition & Subtraction: 20/20
+Multiplication & Division: 20/20
+Fraction Reduction: 15/15
+Output is a Mixed Fraction: 15/15
+Handles Mixed Fractions: 10/10
+Handles Negatives: 15/15
+Code Comments: 5/5
+
+Extra Credit Error Handling 1/4
+
+You handled 3 / 0 correctly, but not 3 + 2/0.  You also didn't give useful error
+messages on most other invalid inputs I tried, like 1 ++ 2 or 3_3_3 + 1.  Still,
+great job!
